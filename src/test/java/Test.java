@@ -83,7 +83,8 @@ public class Test {
         String actualEditProfileBoxTitle = editProfile.getEditProfileBoxTitle();
         Assert.assertEquals(actualEditProfileBoxTitle, "Modify Your Profile", "The Edit Profile box is not loaded!");
 
-        editProfile.editPublicInfo();
+        Assert.assertTrue(editProfile.editPublicInfo(), "The public info is not updated correctly!");
+
     }
 
 }
