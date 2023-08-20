@@ -14,6 +14,7 @@ public class ProfilePage {
     public static final String PAGE_URL = "http://training.skillo-bg.com:4300/users/";
 
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
     @FindBy(tagName = "h2")
     private WebElement username;
@@ -21,11 +22,9 @@ public class ProfilePage {
     @FindBy(xpath = "//*[@class='fas fa-user-edit ng-star-inserted']")
     private WebElement editProfileIcon;
 
-    @FindBy(tagName = "h4")
-    private WebElement editProfileBoxTitle;
-
-    public ProfilePage(WebDriver driver) {
+    public ProfilePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -42,7 +41,4 @@ public class ProfilePage {
         editProfileIcon.click();
     }
 
-    public String getEditProfileBoxTitle() {
-        return editProfileBoxTitle.getText();
-    }
 }

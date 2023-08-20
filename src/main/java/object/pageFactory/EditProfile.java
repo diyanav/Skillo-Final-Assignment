@@ -1,6 +1,5 @@
 package object.pageFactory;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,7 +12,7 @@ import java.util.Random;
 
 public class EditProfile {
     private final WebDriver driver;
-    private final WebDriverWait wait;
+    private WebDriverWait wait;
 
     @FindBy(tagName = "h4")
     private WebElement editProfileBoxTitle;
@@ -27,14 +26,14 @@ public class EditProfile {
     @FindBy(xpath = "//div[5]/p")
     private WebElement actualPublicInfo;
 
-    public EditProfile(WebDriver driver, WebDriverWait wait) {
+    public EditProfile(WebDriver driver) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
     public String getEditProfileBoxTitle() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return editProfileBoxTitle.getText();
     }
 
