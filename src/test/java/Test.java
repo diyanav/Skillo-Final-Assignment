@@ -49,17 +49,8 @@ public class Test {
         };
     }
 
-    @DataProvider(name = "getRandomPublicInfo")
-    public Object[] getRandomPublicInfo() {
-        //String randomPublicInfo = String.format("%06d", random);
-        byte[] array = new byte[10]; // length is bounded by 7
-        new Random().nextBytes(array);
-        String randomPublicInfo = new String(array, StandardCharsets.UTF_8);
-        return new String[]{randomPublicInfo};
-    }
-
     @org.testng.annotations.Test(dataProvider = "getUsers")
-    public void testLogin(String user, String password, String name) {
+    public void testProfile(String user, String password, String name) {
         HomePage homePage = new HomePage(driver);
         homePage.navigateTo();
 
@@ -85,12 +76,6 @@ public class Test {
         String actualUsername = profilePage.getUsername();
         Assert.assertEquals(actualUsername, name, "The username is incorrect!");
 
-        }
-
-    @org.testng.annotations.Test(dataProvider = "getRandomPublicInfo")
-    public void testEditProfile(String randomPublicInfo) {
-
-        ProfilePage profilePage = new ProfilePage(driver, wait);
         profilePage.clickEditProfile();
 
         EditProfile editProfile = new EditProfile(driver);
@@ -98,7 +83,7 @@ public class Test {
         String actualEditProfileBoxTitle = editProfile.getEditProfileBoxTitle();
         Assert.assertEquals(actualEditProfileBoxTitle, "Modify Your Profile", "The Edit Profile box is not loaded!");
 
-        editProfile.editPublicInfo(randomPublicInfo);
+        editProfile.editPublicInfo();
     }
 
 }

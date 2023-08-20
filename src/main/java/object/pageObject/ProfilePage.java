@@ -29,8 +29,6 @@ public class ProfilePage {
     }
 
     public void clickEditProfile() {
-        //WebElement editProfileIcon = driver.findElement(By.xpath("//*[@class='fas fa-user-edit ng-star-inserted']"));
-        //WebElement editProfileIcon = driver.findElement(By.className("fas fa-user-edit ng-star-inserted"));
         WebElement editProfileIcon = driver.findElement(By.cssSelector("[class='fas fa-user-edit ng-star-inserted']"));
         editProfileIcon.click();
     }
