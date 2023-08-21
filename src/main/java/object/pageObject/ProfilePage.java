@@ -1,6 +1,5 @@
 package object.pageObject;
 
-import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class ProfilePage {
     private final WebDriver driver;
@@ -31,5 +31,18 @@ public class ProfilePage {
     public void clickEditProfile() {
         WebElement editProfileIcon = driver.findElement(By.cssSelector("[class='fas fa-user-edit ng-star-inserted']"));
         editProfileIcon.click();
+    }
+
+    public int getExpectedPostsCount() {
+        WebElement postsCountElement = driver.findElement(By.className("profile-stat-count"));
+        return Integer.parseInt(postsCountElement.getText());
+    }
+
+    public int getActualPostsCount() {
+        WebElement allPostsButton = driver.findElement(By.cssSelector("label.btn-all"));
+        allPostsButton.click();
+
+        List<WebElement> posts = driver.findElements(By.tagName("app-post"));
+        return posts.size();
     }
 }

@@ -1,5 +1,6 @@
 package object.pageFactory;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Random;
 
 public class EditProfile {
     private final WebDriver driver;
@@ -37,37 +37,21 @@ public class EditProfile {
         return editProfileBoxTitle.getText();
     }
 
-    public boolean editPublicInfo() {
+    public void editPublicInfo(String newPublicInfo) {
         publicInfoField.click();
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        String newPublicInfo = getRandomPublicInfo();
 
         publicInfoField.clear();
         publicInfoField.sendKeys(newPublicInfo);
 
         wait.until(ExpectedConditions.elementToBeClickable(saveButtonEditProfile));
         saveButtonEditProfile.click();
-
-        boolean isPublicInfoUpdated = String.valueOf(actualPublicInfo).contains(newPublicInfo);
-
-        return isPublicInfoUpdated;
     }
 
-    public String getRandomPublicInfo() {
-        int leftLimit = 97;
-        int rightLimit = 122;
-        int targetStringLength = 6;
-        Random random = new Random();
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = leftLimit + (int)
-                    (random.nextFloat() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
-        }
+    public boolean isPublicInfoUpdated(String newPublicInfo) {
+        boolean isPublicInfoUpdated = actualPublicInfo.getText().contains(newPublicInfo);
 
-        String randomPublicInfo = buffer.toString();
-
-        return randomPublicInfo;
+        return isPublicInfoUpdated;
     }
 }

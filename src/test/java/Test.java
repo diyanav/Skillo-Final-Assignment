@@ -1,5 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import object.pageObject.*;
+import object.pageFactory.*;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -44,13 +44,32 @@ public class Test {
 
     @DataProvider(name = "getUsers")
     public Object[][] getUsers() {
+        String newPublicInfo = getRandomPublicInfo();
+
         return new Object[][]{
-                {"test.user-1234", "test.user-1234", "test.user-1234"}
+                {"test.user-1234", "test.user-1234", "test.user-1234", newPublicInfo}
         };
     }
 
+    public String getRandomPublicInfo() {
+        int leftLimit = 97;
+        int rightLimit = 122;
+        int targetStringLength = 6;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+
+        String randomPublicInfo = buffer.toString();
+
+        return randomPublicInfo;
+    }
+
     @org.testng.annotations.Test(dataProvider = "getUsers")
-    public void testProfile(String user, String password, String name) {
+    public void testProfile(String user, String password, String name, String newPublicInfo) {
         HomePage homePage = new HomePage(driver);
         homePage.navigateTo();
 
@@ -83,8 +102,12 @@ public class Test {
         String actualEditProfileBoxTitle = editProfile.getEditProfileBoxTitle();
         Assert.assertEquals(actualEditProfileBoxTitle, "Modify Your Profile", "The Edit Profile box is not loaded!");
 
-        Assert.assertTrue(editProfile.editPublicInfo(), "The public info is not updated correctly!");
+        editProfile.editPublicInfo(newPublicInfo);
+        Assert.assertTrue(editProfile.isPublicInfoUpdated(newPublicInfo), "The Public Info is incorrect!");
 
+        int expectedPostsCount = profilePage.getExpectedPostsCount();
+        int actualPostsCount = profilePage.getActualPostsCount();
+        Assert.assertEquals(actualPostsCount, expectedPostsCount, "The posts count is incorrect!");
     }
 
 }

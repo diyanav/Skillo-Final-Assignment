@@ -42,8 +42,8 @@ public class LoginPage {
         return signInFormTitle.getText();
     }
 
-    public void populateUsername(String username) {
-        userNameField.sendKeys(username);
+    public void populateUsername(String user) {
+        userNameField.sendKeys(user);
     }
 
     public void populatePassword(String password) {
@@ -52,6 +52,6 @@ public class LoginPage {
 
     public void clickSignIn() {
         wait.until(ExpectedConditions.elementToBeClickable(signInButton));
-        signInButton.sendKeys();
+        signInButton.click();
     }
 }
