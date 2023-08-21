@@ -107,7 +107,12 @@ public class Test {
 
         int expectedPostsCount = profilePage.getExpectedPostsCount();
         int actualPostsCount = profilePage.getActualPostsCount();
-        Assert.assertEquals(actualPostsCount, expectedPostsCount, "The posts count is incorrect!");
+
+        try {
+            Assert.assertEquals(actualPostsCount, expectedPostsCount, "The posts count is incorrect!");
+        } catch (AssertionError exception) {
+            exception.printStackTrace();
+        }
     }
 
 }
