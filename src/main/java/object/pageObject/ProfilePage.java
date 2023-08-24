@@ -59,6 +59,9 @@ public class ProfilePage {
     public void deletePost() {
         WebElement deletePostButton = driver.findElement(By.xpath("//div[4]/div/i"));
         deletePostButton.click();
+
+        WebElement confirmYesButton = driver.findElement(By.xpath("//div[4]/div/div/button[1]"));
+        confirmYesButton.click();
     }
 
 }

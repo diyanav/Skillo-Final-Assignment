@@ -38,6 +38,9 @@ public class ProfilePage {
     @FindBy(xpath = "//div[4]/div/i")
     private List<WebElement> deletePostButton;
 
+    @FindBy(xpath = "//div[4]/div/div/button[1]")
+    private List<WebElement> confirmYesButton;
+
     public ProfilePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
@@ -81,6 +84,9 @@ public class ProfilePage {
     public void deletePost() {
         WebElement deletePostButton = driver.findElement(By.xpath("//div[4]/div/i"));
         deletePostButton.click();
+
+        WebElement confirmYesButton = driver.findElement(By.xpath("//div[4]/div/div/button[1]"));
+        confirmYesButton.click();
     }
 
 }
