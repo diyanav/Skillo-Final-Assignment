@@ -144,13 +144,13 @@ public class Test {
         int actualPublicPostsCountAfter = profilePage.getActualPublicPostsCount();
 
         try {
-            Assert.assertEquals(expectedPostsCountBefore + 1, expectedPostsCountAfter, "The number of all posts count displayed on the profile is not correct!");
+            Assert.assertEquals(expectedPostsCountBefore + 1, expectedPostsCountAfter, "The number of all posts count displayed on the profile is not correct after post uploading!");
         } catch (AssertionError exception) {
             exception.printStackTrace();
         }
 
         try {
-            Assert.assertEquals(actualPublicPostsCountBefore + 1, actualPublicPostsCountAfter, "The number of all public posts is not correct!");
+            Assert.assertEquals(actualPublicPostsCountBefore + 1, actualPublicPostsCountAfter, "The number of all public posts is not correct after post uploading!");
         } catch (AssertionError exception) {
             exception.printStackTrace();
         }
@@ -161,7 +161,7 @@ public class Test {
         actualPublicPostsCountAfter = profilePage.getActualPublicPostsCount();
 
         try {
-            Assert.assertEquals(actualPublicPostsCountBefore, actualPublicPostsCountAfter, "The number of all public posts is not correct!");
+            Assert.assertEquals(actualPublicPostsCountBefore, actualPublicPostsCountAfter, "The number of all public posts is not correct after post deletion!");
         } catch (AssertionError exception) {
             exception.printStackTrace();
         }
