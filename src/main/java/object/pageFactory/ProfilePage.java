@@ -25,7 +25,7 @@ public class ProfilePage {
     @FindBy(className = "profile-stat-count")
     private WebElement postsCountElement;
 
-    @FindBy(css = "label.btn-all")
+    @FindBy(xpath = "//div/label[1]")
     private WebElement allPostsButton;
 
     @FindBy(tagName = "app-post")
@@ -55,7 +55,6 @@ public class ProfilePage {
     }
 
     public int getActualPostsCount() {
-        wait.until(ExpectedConditions.elementToBeClickable(allPostsButton));
         allPostsButton.click();
 
         List<WebElement> posts = postsPreviewCount;

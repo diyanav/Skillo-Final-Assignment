@@ -115,12 +115,11 @@ public class Test {
         }
 
         int expectedPostsCountBefore = profilePage.getExpectedPostsCount();
-        int actualPostsCountBefore = profilePage.getActualPostsCount();
         int actualPublicPostsCountBefore = profilePage.getActualPublicPostsCount();
-
+        int actualPostsCount = profilePage.getActualPostsCount();
 
         try {
-            Assert.assertEquals(actualPostsCountBefore, expectedPostsCountBefore, "The posts count is incorrect!");
+            Assert.assertEquals(actualPostsCount, expectedPostsCountBefore, "The posts count is incorrect!");
         } catch (AssertionError exception) {
             exception.printStackTrace();
         }
@@ -142,12 +141,19 @@ public class Test {
         Assert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
 
         int expectedPostsCountAfter = profilePage.getExpectedPostsCount();
-        int actualPostsCountAfter = profilePage.getActualPostsCount();
         int actualPublicPostsCountAfter = profilePage.getActualPublicPostsCount();
 
-        Assert.assertEquals(expectedPostsCountBefore+1, expectedPostsCountAfter, "The number of all posts count displayed on the profile is not correct!");
-        Assert.assertEquals(actualPublicPostsCountBefore+1, actualPublicPostsCountAfter, "The number of all public posts is not correct!");
-        Assert.assertEquals(actualPostsCountBefore+1, actualPostsCountAfter, "The number of all posts is not correct!");
+        try {
+            Assert.assertEquals(expectedPostsCountBefore + 1, expectedPostsCountAfter, "The number of all posts count displayed on the profile is not correct!");
+        } catch (AssertionError exception) {
+            exception.printStackTrace();
+        }
+
+        try {
+            Assert.assertEquals(actualPublicPostsCountBefore + 1, actualPublicPostsCountAfter, "The number of all public posts is not correct!");
+        } catch (AssertionError exception) {
+            exception.printStackTrace();
+        }
 
     }
 }

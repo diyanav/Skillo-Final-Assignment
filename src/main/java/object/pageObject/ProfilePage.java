@@ -39,7 +39,7 @@ public class ProfilePage {
     }
 
     public int getActualPostsCount() {
-        WebElement allPostsButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("label.btn-all")));
+        WebElement allPostsButton = driver.findElement(By.cssSelector("label.btn-all"));
         allPostsButton.click();
 
         List<WebElement> posts = driver.findElements(By.tagName("app-post"));
