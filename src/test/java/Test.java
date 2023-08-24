@@ -44,10 +44,10 @@ public class Test {
 
     @DataProvider(name = "getUsers")
     public Object[][] getUsers() {
-        String newPublicInfo = getRandomPublicInfo();
+        String randomPublicInfo = getRandomPublicInfo();
 
         return new Object[][]{
-                {"test.user-1234", "test.user-1234", "test.user-1234", newPublicInfo}
+                {"test.user-1234", "test.user-1234", "test.user-1234", randomPublicInfo}
         };
     }
 
@@ -69,7 +69,9 @@ public class Test {
     }
 
     @org.testng.annotations.Test(dataProvider = "getUsers")
-    public void testProfile(String user, String password, String name, String newPublicInfo) {
+    public void testProfile(String user, String password, String name, String randomPublicInfo) {
+        String newPublicInfo = randomPublicInfo;
+
         HomePage homePage = new HomePage(driver);
         homePage.navigateTo();
 
