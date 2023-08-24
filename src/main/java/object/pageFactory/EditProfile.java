@@ -1,6 +1,5 @@
 package object.pageFactory;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -50,6 +49,8 @@ public class EditProfile {
     }
 
     public boolean isPublicInfoUpdated(String newPublicInfo) {
+        wait.until(ExpectedConditions.visibilityOf(actualPublicInfo));
+
         boolean isPublicInfoUpdated = actualPublicInfo.getText().contains(newPublicInfo);
 
         return isPublicInfoUpdated;

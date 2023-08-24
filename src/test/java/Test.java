@@ -1,5 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import object.pageFactory.*;
+import object.pageObject.*;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,8 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
 import java.time.Duration;
 import java.util.Random;
 
@@ -42,12 +41,15 @@ public class Test {
         }
     }
 
-    @DataProvider(name = "getUsers")
+    @DataProvider
     public Object[][] getUsers() {
         String randomPublicInfo = getRandomPublicInfo();
 
+        File postPicture = new File("src/main/resources/upload/pug-icon.jpeg");
+        String postCaption = "Test posts count update";
+
         return new Object[][]{
-                {"test.user-1234", "test.user-1234", "test.user-1234", randomPublicInfo}
+                {"test.user-1234", "test.user-1234", "test.user-1234", randomPublicInfo, postCaption, postPicture}
         };
     }
 
@@ -69,7 +71,7 @@ public class Test {
     }
 
     @org.testng.annotations.Test(dataProvider = "getUsers")
-    public void testProfile(String user, String password, String name, String randomPublicInfo) {
+    public void testProfile(String user, String password, String name, String randomPublicInfo, String caption, File file) {
         String newPublicInfo = randomPublicInfo;
 
         HomePage homePage = new HomePage(driver);
@@ -105,16 +107,47 @@ public class Test {
         Assert.assertEquals(actualEditProfileBoxTitle, "Modify Your Profile", "The Edit Profile box is not loaded!");
 
         editProfile.editPublicInfo(newPublicInfo);
-        Assert.assertTrue(editProfile.isPublicInfoUpdated(newPublicInfo), "The Public Info is incorrect!");
-
-        int expectedPostsCount = profilePage.getExpectedPostsCount();
-        int actualPostsCount = profilePage.getActualPostsCount();
 
         try {
-            Assert.assertEquals(actualPostsCount, expectedPostsCount, "The posts count is incorrect!");
+            Assert.assertTrue(editProfile.isPublicInfoUpdated(newPublicInfo), "The Public Info is incorrect!");
         } catch (AssertionError exception) {
             exception.printStackTrace();
         }
-    }
 
+        int expectedPostsCountBefore = profilePage.getExpectedPostsCount();
+        int actualPostsCountBefore = profilePage.getActualPostsCount();
+        int actualPublicPostsCountBefore = profilePage.getActualPublicPostsCount();
+
+
+        try {
+            Assert.assertEquals(actualPostsCountBefore, expectedPostsCountBefore, "The posts count is incorrect!");
+        } catch (AssertionError exception) {
+            exception.printStackTrace();
+        }
+
+        header.clickNewPost();
+
+        PostPage postPage = new PostPage(driver);
+        Assert.assertTrue(postPage.isUrlLoaded(), "The Post URL is not correct!");
+
+        postPage.uploadPicture(file);
+        Assert.assertTrue(postPage.isImageVisible(), "The image is not visible!");
+        String imageName = postPage.getImageName();
+        Assert.assertEquals(file.getName(), imageName, "The image name is incorrect!");
+
+        postPage.populatePostCaption(caption);
+
+        postPage.createPost();
+
+        Assert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
+
+        int expectedPostsCountAfter = profilePage.getExpectedPostsCount();
+        int actualPostsCountAfter = profilePage.getActualPostsCount();
+        int actualPublicPostsCountAfter = profilePage.getActualPublicPostsCount();
+
+        Assert.assertEquals(expectedPostsCountBefore+1, expectedPostsCountAfter, "The number of all posts count displayed on the profile is not correct!");
+        Assert.assertEquals(actualPublicPostsCountBefore+1, actualPublicPostsCountAfter, "The number of all public posts is not correct!");
+        Assert.assertEquals(actualPostsCountBefore+1, actualPostsCountAfter, "The number of all posts is not correct!");
+
+    }
 }

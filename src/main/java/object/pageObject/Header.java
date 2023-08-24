@@ -29,4 +29,10 @@ public class Header {
     public WebDriver getDriver() {
         return driver;
     }
+
+    public void clickNewPost() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement postLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("nav-link-new-post")));
+        postLink.click();
+    }
 }

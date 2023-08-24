@@ -55,8 +55,14 @@ public class ProfilePage {
     }
 
     public int getActualPostsCount() {
+        wait.until(ExpectedConditions.elementToBeClickable(allPostsButton));
         allPostsButton.click();
 
+        List<WebElement> posts = postsPreviewCount;
+        return posts.size();
+    }
+
+    public int getActualPublicPostsCount() {
         List<WebElement> posts = postsPreviewCount;
         return posts.size();
     }

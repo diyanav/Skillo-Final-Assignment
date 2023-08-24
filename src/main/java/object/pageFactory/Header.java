@@ -14,8 +14,12 @@ public class Header {
 
     @FindBy(id= "nav-link-login")
     private WebElement loginLink;
+
     @FindBy(id= "nav-link-profile")
     private WebElement profileLink;
+
+    @FindBy(id= "nav-link-new-post")
+    private WebElement postLink;
 
     public Header(WebDriver driver) {
         this.driver = driver;
@@ -34,5 +38,10 @@ public class Header {
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    public void clickNewPost() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        postLink.click();
     }
 }
