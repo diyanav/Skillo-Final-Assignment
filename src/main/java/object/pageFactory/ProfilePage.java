@@ -1,5 +1,6 @@
 package object.pageFactory;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,6 +31,12 @@ public class ProfilePage {
 
     @FindBy(tagName = "app-post")
     private List<WebElement> postsPreviewCount;
+
+    @FindBy(xpath = "//div/app-post[1]")
+    private WebElement firstPublicPostPreview;
+
+    @FindBy(xpath = "//div[4]/div/i")
+    private List<WebElement> deletePostButton;
 
     public ProfilePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -64,6 +71,16 @@ public class ProfilePage {
     public int getActualPublicPostsCount() {
         List<WebElement> posts = postsPreviewCount;
         return posts.size();
+    }
+
+    public void openFirstPublicPost() {
+        WebElement firstPublicPostPreview = driver.findElement(By.xpath("//div/app-post[1]"));
+        firstPublicPostPreview.click();
+    }
+
+    public void deletePost() {
+        WebElement deletePostButton = driver.findElement(By.xpath("//div[4]/div/i"));
+        deletePostButton.click();
     }
 
 }

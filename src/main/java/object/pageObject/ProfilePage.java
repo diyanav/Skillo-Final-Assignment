@@ -50,4 +50,15 @@ public class ProfilePage {
         List<WebElement> posts = driver.findElements(By.tagName("app-post"));
         return posts.size();
     }
+
+    public void openFirstPublicPost() {
+        WebElement firstPublicPostPreview = driver.findElement(By.xpath("//div/app-post[1]"));
+        firstPublicPostPreview.click();
+    }
+
+    public void deletePost() {
+        WebElement deletePostButton = driver.findElement(By.xpath("//div[4]/div/i"));
+        deletePostButton.click();
+    }
+
 }

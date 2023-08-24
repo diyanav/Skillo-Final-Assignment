@@ -1,5 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import object.pageObject.*;
+import object.pageFactory.*;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -155,5 +155,15 @@ public class Test {
             exception.printStackTrace();
         }
 
+        profilePage.openFirstPublicPost();
+        profilePage.deletePost();
+
+        actualPublicPostsCountAfter = profilePage.getActualPublicPostsCount();
+
+        try {
+            Assert.assertEquals(actualPublicPostsCountBefore, actualPublicPostsCountAfter, "The number of all public posts is not correct!");
+        } catch (AssertionError exception) {
+            exception.printStackTrace();
+        }
     }
 }
