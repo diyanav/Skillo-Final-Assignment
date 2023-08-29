@@ -19,6 +19,10 @@ public class LoginPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    public void navigateTo() {
+        this.driver.get(PAGE_URL);
+    }
+
     public boolean isUrlLoaded() {
         return wait.until(ExpectedConditions.urlToBe(PAGE_URL));
     }

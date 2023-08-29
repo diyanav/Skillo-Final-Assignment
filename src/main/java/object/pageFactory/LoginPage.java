@@ -27,6 +27,10 @@ public class LoginPage {
     @FindBy(id = "sign-in-button")
     private WebElement signInButton;
 
+    public void navigateTo() {
+        this.driver.get(PAGE_URL);
+    }
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));

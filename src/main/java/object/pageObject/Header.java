@@ -15,11 +15,6 @@ public class Header {
         this.driver = driver;
     }
 
-    public void clickLogin() {
-        WebElement loginLink = driver.findElement(By.id("nav-link-login"));
-        loginLink.click();
-    }
-
     public void clickProfile() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement profileLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("nav-link-profile")));

@@ -12,9 +12,6 @@ import java.time.Duration;
 public class Header {
     private final WebDriver driver;
 
-    @FindBy(id= "nav-link-login")
-    private WebElement loginLink;
-
     @FindBy(id= "nav-link-profile")
     private WebElement profileLink;
 
@@ -30,10 +27,6 @@ public class Header {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(profileLink));
         profileLink.click();
-    }
-
-    public void clickLogin() {
-        loginLink.click();
     }
 
     public WebDriver getDriver() {
