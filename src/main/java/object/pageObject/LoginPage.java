@@ -27,24 +27,18 @@ public class LoginPage {
         return wait.until(ExpectedConditions.urlToBe(PAGE_URL));
     }
 
-    public String getSignInElementText() {
+    public void login(String username, String password) {
         WebElement signInFormTitle = driver.findElement(By.className("h4"));
         wait.until(ExpectedConditions.visibilityOf(signInFormTitle));
-        return signInFormTitle.getText();
-    }
 
-    public void populateUsername(String username) {
         WebElement userNameField = driver.findElement(By.id("defaultLoginFormUsername"));
         userNameField.sendKeys(username);
-    }
 
-    public void populatePassword(String password) {
         WebElement passwordField = driver.findElement(By.id("defaultLoginFormPassword"));
         passwordField.sendKeys(password);
-    }
 
-    public void clickSignIn() {
         WebElement signInButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-in-button")));
         signInButton.click();
     }
+
 }

@@ -41,20 +41,13 @@ public class LoginPage {
         return wait.until(ExpectedConditions.urlToBe(PAGE_URL));
     }
 
-    public String getSignInElementText() {
+    public void login(String username, String password) {
         wait.until(ExpectedConditions.visibilityOf(signInFormTitle));
-        return signInFormTitle.getText();
-    }
 
-    public void populateUsername(String user) {
-        userNameField.sendKeys(user);
-    }
+        userNameField.sendKeys(username);
 
-    public void populatePassword(String password) {
         passwordField.sendKeys(password);
-    }
 
-    public void clickSignIn() {
         wait.until(ExpectedConditions.elementToBeClickable(signInButton));
         signInButton.click();
     }

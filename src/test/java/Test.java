@@ -29,6 +29,13 @@ public class Test {
         this.driver.manage().window().maximize();
         this.driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.navigateTo();
+        loginPage.login("test.user-1234", "test.user-1234");
+
+        Header header = new Header(driver);
+        header.clickProfile();
     }
 
     @AfterMethod
@@ -69,38 +76,10 @@ public class Test {
         };
     }
 
-
-    public void login() {
-
-        LoginPage loginPage = new LoginPage(driver);
-        SoftAssert softAssert = new SoftAssert();
-
-        loginPage.navigateTo();
-
-        softAssert.assertTrue(loginPage.isUrlLoaded(), "Login URL is not correct");
-
-        String signInText = loginPage.getSignInElementText();
-        softAssert.assertEquals(signInText, "Sign in");
-
-        loginPage.populateUsername("test.user-1234");
-        loginPage.populatePassword("test.user-1234");
-        loginPage.clickSignIn();
-
-        HomePage homePage = new HomePage(driver);
-
-        softAssert.assertTrue(homePage.isUrlLoaded(), "The Home page is not correct! ");
-
-        Header header = new Header(driver);
-        header.clickProfile();
-
-    }
-
     @org.testng.annotations.Test(dataProvider = "getRandomPublicInfo", priority = 1)
     public void editPublicInfo(String newPublicInfo) {
 
         SoftAssert softAssert = new SoftAssert();
-
-        login();
 
         ProfilePage profilePage = new ProfilePage(driver, wait);
         softAssert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
@@ -124,8 +103,6 @@ public class Test {
 
         SoftAssert softAssert = new SoftAssert();
 
-        login();
-
         ProfilePage profilePage = new ProfilePage(driver, wait);
         softAssert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
 
@@ -141,8 +118,6 @@ public class Test {
     public void testPostUploadCount(File file, String caption) {
 
         SoftAssert softAssert = new SoftAssert();
-
-        login();
 
         ProfilePage profilePage = new ProfilePage(driver, wait);
         softAssert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
@@ -183,8 +158,6 @@ public class Test {
     public void testPostDeleteCount() {
 
         SoftAssert softAssert = new SoftAssert();
-
-        login();
 
         ProfilePage profilePage = new ProfilePage(driver, wait);
         softAssert.assertTrue(profilePage.isUrlLoaded(), "The Profile URL is not correct!");
